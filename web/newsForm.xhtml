@@ -1,0 +1,26 @@
+<ui:composition template="templates/BasicTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h2>Modify news</h2>
+
+            <h:form>
+                <div class="form-group">
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Title"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{NewsBean.title}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Description"/>
+                    </h3>
+                    <h:inputTextarea styleClass="form-control" rows="5" value="#{NewsBean.text}" required="true"/>
+                    <h:commandButton styleClass="btn btn-primary" value="Modify" action="#{NewsBean.updateNews}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

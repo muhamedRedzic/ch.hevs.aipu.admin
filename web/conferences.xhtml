@@ -1,0 +1,41 @@
+<ui:composition template="templates/BasicTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+
+        <div class="jumbotron">
+            <h1>Conference</h1>
+            <h2>Add conference</h2>
+
+            <h:form>
+                <div class="form-group">
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Title"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.name}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Start date"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.website}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="End date"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Room"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Website"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+
+                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.insertStakeholder}"/>
+                </div>
+            </h:form>
+        </div>
+
+    </ui:define>
+</ui:composition>

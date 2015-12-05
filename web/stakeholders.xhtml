@@ -1,0 +1,92 @@
+<ui:composition template="templates/BasicTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h2>Add stakeholder</h2>
+
+            <h:form>
+                <div class="form-group">
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Name"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.name}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Website"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.website}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Email"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Type of stakeholder"/>
+                    </h3>
+                    <h:selectOneMenu value="#{StakeholderBean.type}" >
+                        <f:selectItem itemValue="orator" itemLabel="Orator" />
+                        <f:selectItem itemValue="partner" itemLabel="Partner" />
+                        <f:selectItem itemValue="organisator" itemLabel="Organisator" />
+                    </h:selectOneMenu>
+                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.saveStakeholder}"/>
+                </div>
+            </h:form>
+
+            <hr/>
+            <h2>Stakeholders list</h2>
+
+            <div class="table-responsive">
+
+
+                <h:dataTable value="#{StakeholderBean.stakeholderList}" var="n"
+                             styleClass="table table-striped table-bordered"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header"><span class="label label-default">Id</span></f:facet>
+                        <!-- row record -->
+                        #{n.id}
+                    </h:column>
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header"><span class="label label-default">Name</span></f:facet>
+                        <!-- row record -->
+                        #{n.name}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Email</span></f:facet>
+                        #{n.email}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Website</span></f:facet>
+                        #{n.website}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Type</span></f:facet>
+                        #{n.type}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Modify/Delete</span></f:facet>
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{StakeholderBean.modifyStakeholders}"/>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{StakeholderBean.deleteStakeholder}">
+                                <f:param name="action" value="#{n.id}"/>
+                            </h:commandButton>
+                        </h:form>
+
+                    </h:column>
+
+                </h:dataTable>
+            </div>
+
+
+
+        </div>
+    </ui:define>
+</ui:composition>

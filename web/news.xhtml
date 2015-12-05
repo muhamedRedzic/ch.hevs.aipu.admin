@@ -1,0 +1,71 @@
+<ui:composition template="templates/BasicTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h2>Add news</h2>
+
+            <h:form>
+                <div class="form-group">
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Title"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{NewsBean.title}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Description"/>
+                    </h3>
+                    <h:inputTextarea styleClass="form-control" rows="5" value="#{NewsBean.text}" required="true"/>
+                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{NewsBean.saveNews}"/>
+                </div>
+            </h:form>
+
+            <hr/>
+            <h2>News list</h2>
+
+            <div class="table-responsive">
+
+
+                <h:dataTable value="#{NewsBean.newsList}" var="n"
+                             styleClass="table table-striped table-bordered"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header"><span class="label label-default">Title</span></f:facet>
+                        <!-- row record -->
+                        #{n.title}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Descrption</span></f:facet>
+                        #{n.text}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Date and time</span></f:facet>
+                        #{n.published}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"><span class="label label-default">Modify/Delete</span></f:facet>
+                        <h:form>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{NewsBean.modifyNews}">
+                                <f:param name="action" value="#{n.id}"/>
+                            </h:commandButton>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{NewsBean.deleteNews}">
+                                <f:param name="action" value="#{n.id}"/>
+                            </h:commandButton>
+                        </h:form>
+
+                    </h:column>
+
+                </h:dataTable>
+            </div>
+
+
+
+        </div>
+    </ui:define>
+</ui:composition>

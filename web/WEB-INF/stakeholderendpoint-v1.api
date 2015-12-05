@@ -1,0 +1,201 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://conference-6452.appspot.com/_ah/api",
+  "name" : "stakeholderendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://conference-6452.appspot.com/_ah/spi",
+    "deadline" : 65.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "ownerDomain" : "hevs.ch",
+  "ownerName" : "hevs.ch",
+  "packagePath" : "aipu.admin.entity",
+  "methods" : {
+    "stakeholderendpoint.updateStakeholder" : {
+      "path" : "stakeholder",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.StakeholderEndpoint.updateStakeholder",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "stakeholderendpoint.listStakeholder" : {
+      "path" : "stakeholder",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.StakeholderEndpoint.listStakeholder",
+      "request" : {
+        "parameters" : {
+          "cursor" : {
+            "type" : "string",
+            "required" : false
+          },
+          "limit" : {
+            "type" : "int32",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "stakeholderendpoint.getStakeholder" : {
+      "path" : "stakeholder/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.StakeholderEndpoint.getStakeholder",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "stakeholderendpoint.insertStakeholder" : {
+      "path" : "stakeholder",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.StakeholderEndpoint.insertStakeholder",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "stakeholderendpoint.removeStakeholder" : {
+      "path" : "stakeholder/{id}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.StakeholderEndpoint.removeStakeholder",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Stakeholder" : {
+        "id" : "Stakeholder",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "type" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "website" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CollectionResponse_Stakeholder" : {
+        "id" : "CollectionResponse_Stakeholder",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Stakeholder"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "ch.hevs.aipu.admin.entity.StakeholderEndpoint.updateStakeholder" : {
+        "request" : {
+          "$ref" : "Stakeholder"
+        },
+        "response" : {
+          "$ref" : "Stakeholder"
+        }
+      },
+      "ch.hevs.aipu.admin.entity.StakeholderEndpoint.listStakeholder" : {
+        "response" : {
+          "$ref" : "CollectionResponse_Stakeholder"
+        }
+      },
+      "ch.hevs.aipu.admin.entity.StakeholderEndpoint.getStakeholder" : {
+        "response" : {
+          "$ref" : "Stakeholder"
+        }
+      },
+      "ch.hevs.aipu.admin.entity.StakeholderEndpoint.insertStakeholder" : {
+        "request" : {
+          "$ref" : "Stakeholder"
+        },
+        "response" : {
+          "$ref" : "Stakeholder"
+        }
+      },
+      "ch.hevs.aipu.admin.entity.StakeholderEndpoint.removeStakeholder" : {
+      }
+    }
+  }
+}

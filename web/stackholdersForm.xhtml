@@ -1,0 +1,38 @@
+<ui:composition template="templates/BasicTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="content">
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <h2>Modify stakeholder</h2>
+
+            <h:form>
+                <div class="form-group">
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Name"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.name}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Website"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.website}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Email"/>
+                    </h3>
+                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Type of stakeholder"/>
+                    </h3>
+                    <h:selectOneMenu value="#{StakeholderBean.type}" >
+                        <f:selectItem itemValue="orator" itemLabel="Orator" />
+                        <f:selectItem itemValue="partner" itemLabel="Partner" />
+                        <f:selectItem itemValue="organisator" itemLabel="Organisator" />
+                    </h:selectOneMenu>
+                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.updateStakeholder}"/>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
