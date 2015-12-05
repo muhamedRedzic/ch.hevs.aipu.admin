@@ -39,9 +39,8 @@
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Website"/>
                     </h3>
-                    <h:inputText id="website" styleClass="form-control" value="#{ConferenceBean.website}" required="true"/>
-                    <p:watermark for="website" value="Website (required)" />
-                    <p:message for="website" display="text"/>
+                    <h:inputText id="website" styleClass="form-control" value="#{ConferenceBean.website}"/>
+                    <p:watermark for="website" value="Website" />
                     <h:commandButton styleClass="btn btn-primary" value="Save" action="#{StakeholderBean.save}"/>
                 </div>
             </h:form>
