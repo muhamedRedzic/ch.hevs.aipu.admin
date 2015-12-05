@@ -1,8 +1,8 @@
-/* package ch.hevs.aipu.admin.managedBean;
+package ch.hevs.aipu.admin.managedbean;
 
-import ch.hevs.aipu.admin.controller.NewsController;
-import ch.hevs.aipu.admin.model.Conference;
-import ch.hevs.aipu.admin.model.News;
+import ch.hevs.aipu.admin.entity.Conference;
+import ch.hevs.aipu.admin.service.Aipu;
+import ch.hevs.aipu.admin.service.AipuBean;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -10,10 +10,10 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-@ManagedBean
+@ManagedBean(name = "ConferenceBean")
 @SessionScoped
 public class ConferenceBean implements Serializable{
 
@@ -21,16 +21,14 @@ public class ConferenceBean implements Serializable{
 
     private Long id;
     private String title;
-    private String start;
-    private String end;
+    private Date startDate;
+    private Date endDate;
     private String room;
     private String website;
-    private List<Conference> conferenceList = new ArrayList<Conference>();
+    private List<Conference> conferenceList;
     //private transient NewsController nc;
     @PostConstruct
     public void initialize(){
-
-        //nc = new NewsController();
     }
 
     //getter and setter
@@ -43,22 +41,6 @@ public class ConferenceBean implements Serializable{
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
     }
 
     public String getRoom() {
@@ -77,53 +59,38 @@ public class ConferenceBean implements Serializable{
         this.website = website;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setConferenceList(List<Conference> conferenceList) {
+        this.conferenceList = conferenceList;
+    }
+
     public List<Conference> getConferenceList(){
-        NewsController nc = new NewsController();
-        this.newsList = nc.getNewsList();
-        return this.newsList;}
-    public void setNewsList(List<News> newsList){this.newsList = newsList;}
+        Aipu aipu = new AipuBean();
+        conferenceList = new ArrayList<Conference>();
+        List<Conference> temp = aipu.getAllConferences();
 
-    public void insertNews(){
-        NewsController nc = new NewsController();
-        nc.setNews(title, text);
-
-        this.title = "";
-        this.text = "";
+        for(int i = 0; i < temp.size(); i++){
+            conferenceList.add(temp.get(i));
+        }
+        return conferenceList;
     }
 
-    public void deleteNews(){
-        NewsController nc = new NewsController();
-        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String action = params.get("action");
-        Long id = Long.parseLong(action);
-        nc.deleteNewsById(id);
-    }
+    public void save(){
 
-    public String modifyNews(){
-        NewsController nc = new NewsController();
-        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String action = params.get("action");
-        Long id = Long.parseLong(action);
-        News news = nc.modifyNewsById(id);
-        this.id = news.getId();
-        this.title = news.getTitle();
-        this.text = news.getText();
-        this.publishedDate = news.getPublishedDate();
-        return "Succes";
-    }
-
-    public String updateNews(){
-        NewsController nc = new NewsController();
-        News news = new News();
-        news.setId(this.id);
-        news.setTitle(this.title);
-        news.setText(this.text);
-        nc.updateNews(news);
-        this.id = null;
-        this.title = "";
-        this.text = "";
-        this.publishedDate = "";
-        return "Succes";
     }
 }
-*/

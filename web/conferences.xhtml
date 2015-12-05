@@ -2,7 +2,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
 
         <div class="jumbotron">
@@ -14,25 +15,34 @@
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Title"/>
                     </h3>
-                    <h:inputText styleClass="form-control" value="#{StakeholderBean.name}" rendered="true"/>
+                    <h:inputText id="title" styleClass="form-control" value="#{ConferenceBean.title}" required="true"/>
+                    <p:watermark for="title" value="Title (required)" />
+                    <p:message for="title" display="text"/>
                     <h3>
-                        <h:outputLabel styleClass="label label-default" value="Start date"/>
+                        <h:outputLabel for="startDateTime" styleClass="label label-default" value="Start date"/>
                     </h3>
-                    <h:inputText styleClass="form-control" value="#{StakeholderBean.website}" rendered="true"/>
+                    <p:calendar id="startDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.startDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup"/>
+                    <p:watermark for="startDateTime" value="Start date and time (required)" />
+                    <p:message for="startDateTime" display="text"/>
                     <h3>
-                        <h:outputLabel styleClass="label label-default" value="End date"/>
+                        <h:outputLabel for="endDateTime" styleClass="label label-default" value="End date"/>
                     </h3>
-                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <p:calendar id="endDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.endDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup"/>
+                    <p:watermark for="endDateTime" value="End date and time (required)" />
+                    <p:message for="endDateTime" display="text"/>
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Room"/>
                     </h3>
-                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
+                    <h:inputText id="room" styleClass="form-control" value="#{ConferenceBean.room}" required="true"/>
+                    <p:watermark for="room" value="Room (required)" />
+                    <p:message for="room" display="text"/>
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Website"/>
                     </h3>
-                    <h:inputText styleClass="form-control" value="#{StakeholderBean.email}" rendered="true"/>
-
-                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.insertStakeholder}"/>
+                    <h:inputText id="website" styleClass="form-control" value="#{ConferenceBean.website}" required="true"/>
+                    <p:watermark for="website" value="Website (required)" />
+                    <p:message for="website" display="text"/>
+                    <h:commandButton styleClass="btn btn-primary" value="Save" action="#{StakeholderBean.save}"/>
                 </div>
             </h:form>
         </div>
