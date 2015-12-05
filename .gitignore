@@ -50,3 +50,7 @@ hs_err_pid*
 ## File-based project format:
 *.ipr
 *.iws
+
+
+# Created Artifact folder for local tests
+out/
