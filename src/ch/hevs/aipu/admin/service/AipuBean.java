@@ -73,7 +73,14 @@ public class AipuBean implements Aipu, Serializable{
 
     @Override
     public List<Conference> getAllConferences() {
-        return null;
+        try {
+            Query query = em.createQuery("SELECT c FROM Conference c");
+            List<Conference> results = (List<Conference>) query.getResultList();
+            Collections.sort(results);
+            return results;
+        }finally {
+            em.close();
+        }
     }
 
     @Override

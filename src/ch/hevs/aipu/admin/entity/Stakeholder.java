@@ -3,7 +3,9 @@ package ch.hevs.aipu.admin.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Stakeholder implements Comparable<Stakeholder>, Serializable{
@@ -16,6 +18,9 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     private String type;
     private String email;
     private String website;
+
+    @ManyToOne
+    private Conference conference;
 
     //constructor
     public Stakeholder(){};
@@ -54,6 +59,14 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     }
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public Conference getConference() {
+        return conference;
+    }
+
+    public void setConference(Conference conference) {
+        this.conference = conference;
     }
 
     @Override

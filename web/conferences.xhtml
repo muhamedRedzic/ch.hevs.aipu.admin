@@ -41,9 +41,51 @@
                     </h3>
                     <h:inputText id="website" styleClass="form-control" value="#{ConferenceBean.website}"/>
                     <p:watermark for="website" value="Website" />
-                    <h:commandButton styleClass="btn btn-primary" value="Save" action="#{StakeholderBean.save}"/>
+                    <h:commandButton styleClass="btn btn-primary" value="Save" action="#{ConferenceBean.save}"/>
                 </div>
             </h:form>
+        </div>
+
+        <hr/>
+        <h2>News list</h2>
+
+        <div class="table-responsive">
+
+            <h:dataTable value="#{ConferenceBean.conferenceList}" var="c"
+                     styleClass="table table-striped table-bordered"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row">
+            </h:dataTable>
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header"><span class="label label-default">Title</span></f:facet>
+                <!-- row record -->
+                #{c.title}
+            </h:column>
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header"><span class="label label-default">Start</span></f:facet>
+                <!-- row record -->
+                #{c.start}
+            </h:column>
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header"><span class="label label-default">End</span></f:facet>
+                <!-- row record -->
+                #{c.end}
+            </h:column>
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header"><span class="label label-default">Room</span></f:facet>
+                <!-- row record -->
+                #{c.room}
+            </h:column>
+            <h:column>
+                <!-- column header -->
+                <f:facet name="header"><span class="label label-default">Website</span></f:facet>
+                <!-- row record -->
+                #{c.website}
+            </h:column>
         </div>
 
     </ui:define>

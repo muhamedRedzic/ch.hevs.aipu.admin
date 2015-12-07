@@ -1,6 +1,7 @@
 package ch.hevs.aipu.admin.managedbean;
 
 import ch.hevs.aipu.admin.entity.Conference;
+import ch.hevs.aipu.admin.entity.Stakeholder;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
 
@@ -83,7 +84,6 @@ public class ConferenceBean implements Serializable{
         Aipu aipu = new AipuBean();
         conferenceList = new ArrayList<Conference>();
         List<Conference> temp = aipu.getAllConferences();
-
         for(int i = 0; i < temp.size(); i++){
             conferenceList.add(temp.get(i));
         }
@@ -91,6 +91,12 @@ public class ConferenceBean implements Serializable{
     }
 
     public void save(){
-
+        Aipu aipu = new AipuBean();
+        aipu.saveConference(title,startDate,endDate,room,website,new ArrayList<Stakeholder>());
+        this.title = "";
+        /*this.startDate = "";
+        this.endDate = "";*/
+        this.room = "";
+        this.website = "";
     }
 }

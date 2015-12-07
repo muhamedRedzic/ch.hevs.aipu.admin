@@ -19,7 +19,7 @@ public class Conference implements Comparable<Conference>, Serializable{
     private Date end;
     private String room;
     private String website;
-    @ManyToMany
+    @OneToMany(mappedBy = "conference")
     private List<Stakeholder> stakeholders;
 
     //Constructor
@@ -68,6 +68,7 @@ public class Conference implements Comparable<Conference>, Serializable{
     }
     public List<Stakeholder> getStakeholders() {return stakeholders;}
     public void setStakeholders(List<Stakeholder> stakeholders) {this.stakeholders = stakeholders;}
+
 
     @Override
     public int compareTo(Conference o) {
