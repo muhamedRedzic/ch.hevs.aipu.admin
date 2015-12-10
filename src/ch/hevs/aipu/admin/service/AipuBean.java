@@ -22,7 +22,8 @@ public class AipuBean implements Aipu, Serializable{
 
     @Override
     public News getNews(Long newsId) {
-        return null;
+        News n = em.find(News.class, newsId);
+        return n;
     }
 
     @Override
@@ -61,6 +62,18 @@ public class AipuBean implements Aipu, Serializable{
             em.getTransaction().begin();
             em.remove(n);
             em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void updateNews(Long id, String title, String text) {
+        try {
+            News n = em.find(News.class, id);
+            n.setTitle(title);
+            n.setText(text);
+            n.setPublished(swissTimeZone());
         }finally {
             em.close();
         }

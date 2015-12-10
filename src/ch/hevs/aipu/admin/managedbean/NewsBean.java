@@ -71,7 +71,25 @@ public class NewsBean implements Serializable{
         this.text = "";
     }
 
-    public void modifyNews() {
+    public String modifyNews() {
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String action = params.get("action");
+        Long id = Long.parseLong(action);
+        Aipu aipu = new AipuBean();
+        News news = aipu.getNews(id);
+        this.id = news.getId();
+        this.title = news.getTitle();
+        this.text = news.getText();
+        return "newsModify";
+    }
+
+    public String updateNews(){
+        Aipu aipu = new AipuBean();
+        aipu.updateNews(id, title, text);
+        id = null;
+        this.title = "";
+        this.text = "";
+        return "news";
     }
 
     public void deleteNews() {

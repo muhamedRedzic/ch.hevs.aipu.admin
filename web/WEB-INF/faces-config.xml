@@ -35,4 +35,16 @@
             <to-view-id>/stakeholders.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/news.jsf</from-view-id>
+        <navigation-case>
+            <to-view-id>/newsModify.jsf</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/newsModify.jsf</from-view-id>
+        <navigation-case>
+            <to-view-id>/news.jsf</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

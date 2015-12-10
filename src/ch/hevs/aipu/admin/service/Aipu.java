@@ -16,6 +16,7 @@ public interface Aipu {
     public List<News> getAllNews();
     public void saveNews(String title, String text);
     public void deleteNews(Long newsId);
+    public void updateNews(Long id, String title, String text);
     //conference
     public Conference getConference(Long conferenceId);
     public List<Conference> getAllConferences();
