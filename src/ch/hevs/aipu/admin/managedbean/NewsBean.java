@@ -3,6 +3,7 @@ package ch.hevs.aipu.admin.managedbean;
 import ch.hevs.aipu.admin.entity.News;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
+import com.google.appengine.api.datastore.Key;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.security.KeyFactory;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

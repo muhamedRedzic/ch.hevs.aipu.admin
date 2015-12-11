@@ -1,12 +1,12 @@
 {
   "extends" : "thirdParty.api",
   "abstract" : false,
-  "root" : "https://conference-6452.appspot.com/_ah/api",
+  "root" : "https://myapp.appspot.com/_ah/api",
   "name" : "newsendpoint",
   "version" : "v1",
   "defaultVersion" : false,
   "adapter" : {
-    "bns" : "https://conference-6452.appspot.com/_ah/spi",
+    "bns" : "https://myapp.appspot.com/_ah/spi",
     "deadline" : 65.0,
     "type" : "lily"
   },
@@ -27,6 +27,22 @@
   "ownerName" : "hevs.ch",
   "packagePath" : "aipu.admin.entity",
   "methods" : {
+    "newsendpoint.updateNews" : {
+      "path" : "news",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.NewsEndpoint.updateNews",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "newsendpoint.listNews" : {
       "path" : "news",
       "httpMethod" : "GET",
@@ -52,14 +68,14 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "newsendpoint.updateNews" : {
+    "newsendpoint.insertNews" : {
       "path" : "news",
-      "httpMethod" : "PUT",
+      "httpMethod" : "POST",
       "authLevel" : "NONE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ ],
       "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "ch.hevs.aipu.admin.entity.NewsEndpoint.updateNews",
+      "rosyMethod" : "ch.hevs.aipu.admin.entity.NewsEndpoint.insertNews",
       "request" : {
         "body" : "autoTemplate(backendRequest)",
         "bodyName" : "resource"
@@ -89,22 +105,6 @@
         "body" : "empty"
       }
     },
-    "newsendpoint.insertNews" : {
-      "path" : "news",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "ch.hevs.aipu.admin.entity.NewsEndpoint.insertNews",
-      "request" : {
-        "body" : "autoTemplate(backendRequest)",
-        "bodyName" : "resource"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "newsendpoint.getNews" : {
       "path" : "news/{id}",
       "httpMethod" : "GET",
@@ -129,21 +129,6 @@
   },
   "descriptor" : {
     "schemas" : {
-      "CollectionResponse_News" : {
-        "id" : "CollectionResponse_News",
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "News"
-            }
-          },
-          "nextPageToken" : {
-            "type" : "string"
-          }
-        }
-      },
       "News" : {
         "id" : "News",
         "type" : "object",
@@ -163,14 +148,24 @@
             "format" : "date-time"
           }
         }
+      },
+      "CollectionResponse_News" : {
+        "id" : "CollectionResponse_News",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "News"
+            }
+          },
+          "nextPageToken" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
-      "ch.hevs.aipu.admin.entity.NewsEndpoint.listNews" : {
-        "response" : {
-          "$ref" : "CollectionResponse_News"
-        }
-      },
       "ch.hevs.aipu.admin.entity.NewsEndpoint.updateNews" : {
         "request" : {
           "$ref" : "News"
@@ -179,7 +174,10 @@
           "$ref" : "News"
         }
       },
-      "ch.hevs.aipu.admin.entity.NewsEndpoint.removeNews" : {
+      "ch.hevs.aipu.admin.entity.NewsEndpoint.listNews" : {
+        "response" : {
+          "$ref" : "CollectionResponse_News"
+        }
       },
       "ch.hevs.aipu.admin.entity.NewsEndpoint.insertNews" : {
         "request" : {
@@ -188,6 +186,8 @@
         "response" : {
           "$ref" : "News"
         }
+      },
+      "ch.hevs.aipu.admin.entity.NewsEndpoint.removeNews" : {
       },
       "ch.hevs.aipu.admin.entity.NewsEndpoint.getNews" : {
         "response" : {

@@ -1,7 +1,7 @@
 package ch.hevs.aipu.admin.entity;
 
-import ch.hevs.aipu.admin.service.EMF;
 
+import ch.hevs.aipu.admin.service.EMF;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -40,7 +40,7 @@ public class NewsEndpoint {
 
 		try {
 			mgr = getEntityManager();
-			Query query = mgr.createQuery("select News from News as News");
+			Query query = mgr.createQuery("select n from News n");
 			if (cursorString != null && cursorString != "") {
 				cursor = Cursor.fromWebSafeString(cursorString);
 				query.setHint(JPACursorHelper.CURSOR_HINT, cursor);
