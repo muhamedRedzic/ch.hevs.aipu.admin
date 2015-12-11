@@ -3,6 +3,7 @@ package ch.hevs.aipu.admin.service;
 import ch.hevs.aipu.admin.entity.Conference;
 import ch.hevs.aipu.admin.entity.News;
 import ch.hevs.aipu.admin.entity.Stakeholder;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
 
@@ -97,17 +98,30 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void saveConference(String title, Date start, Date end, String room, String website, List<Stakeholder> stakeholders) {
-
+    public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders) {
+        try {
+            //System.out.print(stakeholders.get(0).getName());
+            Conference c = new Conference(title, start, end, room, website,stakeholders);
+            em.persist(c);
+        }finally {
+            em.close();
+        }
     }
 
     @Override
     public void deleteConference(Long conferenceId) {
-
+        try {
+            Conference c = em.find(Conference.class, conferenceId);
+            em.getTransaction().begin();
+            em.remove(c);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
     }
 
     @Override
-    public News getStakeholder(Long StakeholderId) {
+    public Stakeholder getStakeholder(Key StakeholderId) {
         return null;
     }
 
@@ -134,13 +148,13 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void deleteStakeholder(Long StakeholderId) {
+    public void deleteStakeholder(Key StakeholderId) {
 
         try {
             Stakeholder s = em.find(Stakeholder.class, StakeholderId);
-            em.getTransaction().begin();
+            //em.getTransaction().begin();
             em.remove(s);
-            em.getTransaction().commit();
+            //em.getTransaction().commit();
         }finally {
             em.close();
         }

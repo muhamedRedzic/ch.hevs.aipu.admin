@@ -3,6 +3,7 @@ package ch.hevs.aipu.admin.service;
 import ch.hevs.aipu.admin.entity.Conference;
 import ch.hevs.aipu.admin.entity.News;
 import ch.hevs.aipu.admin.entity.Stakeholder;
+import com.google.appengine.api.datastore.Key;
 
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,11 @@ public interface Aipu {
     //conference
     public Conference getConference(Long conferenceId);
     public List<Conference> getAllConferences();
-    public void saveConference(String title, Date start, Date end, String room, String website, List<Stakeholder> stakeholders);
+    public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders);
     public void deleteConference(Long conferenceId);
     //stakeholder
-    public News getStakeholder(Long StakeholderId);
+    public Stakeholder getStakeholder(Key StakeholderId);
     public List<Stakeholder> getAllStakeholder();
     public void saveStakeholder(String name, String type, String email, String website);
-    public void deleteStakeholder(Long StakeholderId);
+    public void deleteStakeholder(Key StakeholderId);
 }

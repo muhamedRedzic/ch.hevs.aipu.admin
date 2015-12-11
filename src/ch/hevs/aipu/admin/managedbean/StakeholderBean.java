@@ -3,6 +3,8 @@ package ch.hevs.aipu.admin.managedbean;
 import ch.hevs.aipu.admin.entity.Stakeholder;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +21,7 @@ public class StakeholderBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Key id;
     private String type;
     private String name;
     private String website;
@@ -33,11 +35,11 @@ public class StakeholderBean implements Serializable{
         stakeholderList = new ArrayList<Stakeholder>();
     }
 
-    public Long getId() {
+    public Key getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Key id) {
         this.id = id;
     }
 
@@ -76,7 +78,8 @@ public class StakeholderBean implements Serializable{
     public void deleteStakeholder(){
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String action = params.get("action");
-        Long id = Long.parseLong(action);
+        System.out.print(action);
+        Key id = KeyFactory.createKey("Stakeholder",Long.parseLong(action));
         Aipu aipu = new AipuBean();
         aipu.deleteStakeholder(id);
     }
@@ -87,6 +90,7 @@ public class StakeholderBean implements Serializable{
         List<Stakeholder> temp = aipu.getAllStakeholder();
         for(int i = 0; i < temp.size(); i++){
             stakeholderList.add(temp.get(i));
+
         }
         return stakeholderList;
     }

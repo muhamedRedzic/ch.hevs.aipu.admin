@@ -4,6 +4,8 @@ import ch.hevs.aipu.admin.entity.Conference;
 import ch.hevs.aipu.admin.entity.Stakeholder;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name = "ConferenceBean")
 @SessionScoped
@@ -26,10 +29,16 @@ public class ConferenceBean implements Serializable{
     private Date endDate;
     private String room;
     private String website;
+    private List<String> stakeholdersKey;
+
     private List<Conference> conferenceList;
+
+
     //private transient NewsController nc;
     @PostConstruct
     public void initialize(){
+        Aipu aipu = new AipuBean();
+        conferenceList = new ArrayList<Conference>();
     }
 
     //getter and setter
@@ -80,6 +89,14 @@ public class ConferenceBean implements Serializable{
         this.conferenceList = conferenceList;
     }
 
+    public List<String> getStakeholdersKey() {
+        return stakeholdersKey;
+    }
+
+    public void setStakeholdersKey(List<String> stakeholdersKey) {
+        this.stakeholdersKey = stakeholdersKey;
+    }
+
     public List<Conference> getConferenceList(){
         Aipu aipu = new AipuBean();
         conferenceList = new ArrayList<Conference>();
@@ -87,16 +104,37 @@ public class ConferenceBean implements Serializable{
         for(int i = 0; i < temp.size(); i++){
             conferenceList.add(temp.get(i));
         }
+
+        //TODO remove this
+        //conferenceList.get(0).addStakeholder(new Stakeholder("jean","Orator","ypo","www"));
+
+
         return conferenceList;
     }
 
     public void save(){
         Aipu aipu = new AipuBean();
-        aipu.saveConference(title,startDate,endDate,room,website,new ArrayList<Stakeholder>());
+
+        //get all related Stakeholder
+        List<Stakeholder> stakeholders = new ArrayList<>();
+        for(String keyString : stakeholdersKey){
+            Key k = KeyFactory.createKey("Stakeholder",Long.parseLong(keyString));
+            stakeholders.add(aipu.getStakeholder(k));
+        }
+
+        aipu.saveConference(title,startDate,endDate,room,website,stakeholders);
         this.title = "";
         /*this.startDate = "";
         this.endDate = "";*/
         this.room = "";
         this.website = "";
+    }
+
+    public void deleteConference() {
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String action = params.get("action");
+        Long id = Long.parseLong(action);
+        Aipu aipu = new AipuBean();
+        aipu.deleteConference(id);
     }
 }

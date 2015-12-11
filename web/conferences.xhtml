@@ -41,13 +41,24 @@
                     </h3>
                     <h:inputText id="website" styleClass="form-control" value="#{ConferenceBean.website}"/>
                     <p:watermark for="website" value="Website" />
+
+                    <h3>
+                        <h:outputLabel styleClass="label label-default" value="Stakeholders"/>
+                    </h3>
+
+
+                        <h:selectManyCheckbox id="stakeholder" value="#{ConferenceBean.stakeholdersKey}"  >
+                            <f:selectItems value="#{StakeholderBean.stakeholderList}" var="s" itemValue="#{s.id.id}" itemLabel="#{s.name}" />
+                        </h:selectManyCheckbox>
+
+
                     <h:commandButton styleClass="btn btn-primary" value="Save" action="#{ConferenceBean.save}"/>
                 </div>
             </h:form>
         </div>
 
         <hr/>
-        <h2>News list</h2>
+        <h2>Conference list</h2>
 
         <div class="table-responsive">
 
@@ -55,7 +66,7 @@
                      styleClass="table table-striped table-bordered"
                      headerClass="order-table-header"
                      rowClasses="order-table-odd-row,order-table-even-row">
-            </h:dataTable>
+
             <h:column>
                 <!-- column header -->
                 <f:facet name="header"><span class="label label-default">Title</span></f:facet>
@@ -86,6 +97,25 @@
                 <!-- row record -->
                 #{c.website}
             </h:column>
+                <h:column>
+                    <f:facet name="header"><span class="label label-default">Nb Stakeholder</span></f:facet>
+                    <h:dataTable value="#{c.stakeholders}" var="s" >
+                        <h:column>
+                            #{s.name}
+                        </h:column>
+                    </h:dataTable>
+                </h:column>
+                <h:column>
+                <h:form>
+                    <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{ConferenceBean.modifyConference}">
+                        <f:param name="action" value="#{c.id}"/>
+                    </h:commandButton>
+                    <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{ConferenceBean.deleteConference}">
+                        <f:param name="action" value="#{c.id}"/>
+                    </h:commandButton>
+                </h:form>
+                </h:column>
+            </h:dataTable>
         </div>
 
     </ui:define>

@@ -1,26 +1,27 @@
 package ch.hevs.aipu.admin.entity;
 
+import com.google.appengine.api.datastore.Key;
+
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 
 @Entity
 public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Key id;
     @Enumerated(EnumType.STRING)
     private String name;
     private String type;
     private String email;
     private String website;
 
-    @ManyToOne
-    private Conference conference;
+    /*@ManyToOne(fetch = FetchType.LAZY, optional = true)
+    //@Column(nullable = true)
+    private Conference conference;*/
 
     //constructor
     public Stakeholder(){};
@@ -33,7 +34,7 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     }
 
     //getter and setter
-    public Long getId() {
+    public Key getId() {
         return id;
     }
     public String getType() {
@@ -61,13 +62,13 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
         this.website = website;
     }
 
-    public Conference getConference() {
+    /*public Conference getConference() {
         return conference;
     }
 
     public void setConference(Conference conference) {
         this.conference = conference;
-    }
+    }*/
 
     @Override
     public int compareTo(Stakeholder o) {

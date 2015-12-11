@@ -2,7 +2,6 @@ package ch.hevs.aipu.admin.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -19,16 +18,25 @@ public class Conference implements Comparable<Conference>, Serializable{
     private Date end;
     private String room;
     private String website;
-    @OneToMany(mappedBy = "conference")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Stakeholder> stakeholders;
 
     //Constructor
     public Conference(){
-        stakeholders = new ArrayList<>();
+        this.stakeholders = new ArrayList<>();
     };
 
+    public Conference(String title, Date start, Date end, String room, String website) {
+        this.stakeholders = new ArrayList<>();
+        this.title = title;
+        this.start = start;
+        this.end = end;
+        this.room = room;
+        this.website = website;
+    }
+
     public Conference(String title, Date start, Date end, String room, String website, List<Stakeholder> stakeholders) {
-        stakeholders = new ArrayList<>();
+        //stakeholders = new ArrayList<>();
         this.title = title;
         this.start = start;
         this.end = end;
@@ -69,6 +77,9 @@ public class Conference implements Comparable<Conference>, Serializable{
     public List<Stakeholder> getStakeholders() {return stakeholders;}
     public void setStakeholders(List<Stakeholder> stakeholders) {this.stakeholders = stakeholders;}
 
+    public void addStakeholder(Stakeholder stakeholder){
+        this.stakeholders.add(stakeholder);
+    }
 
     @Override
     public int compareTo(Conference o) {
