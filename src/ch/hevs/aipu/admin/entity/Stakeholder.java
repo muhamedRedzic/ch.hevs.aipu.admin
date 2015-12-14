@@ -3,6 +3,7 @@ package ch.hevs.aipu.admin.entity;
 import com.google.appengine.api.datastore.Key;
 
 
+import javax.annotation.Nullable;
 import javax.jdo.annotations.Persistent;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,6 +21,7 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     private String email;
     private String website;
     @Persistent
+    @Column(nullable = true)
     private List<Key> conferences;
 
     /*@ManyToOne(fetch = FetchType.LAZY, optional = true)

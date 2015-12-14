@@ -80,7 +80,9 @@ public class Conference implements Comparable<Conference>, Serializable{
     }
 
     public void addStakeholder(Key key){
+        System.out.println(key);
         stakeholders.add(key);
+
     }
 
     @Override
@@ -94,9 +96,6 @@ public class Conference implements Comparable<Conference>, Serializable{
             return false;
         }
         Conference conference = (Conference) obj;
-        System.out.println("This : " + this.getTitle());
-        System.out.println("Obj : " + ((Conference) obj).getTitle());
-
         return (this.id.getId() == conference.id.getId());
     }
 }
