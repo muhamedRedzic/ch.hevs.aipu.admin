@@ -3,8 +3,10 @@ package ch.hevs.aipu.admin.entity;
 import com.google.appengine.api.datastore.Key;
 
 
+import javax.jdo.annotations.Persistent;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -13,11 +15,12 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key id;
-    @Enumerated(EnumType.STRING)
     private String name;
     private String type;
     private String email;
     private String website;
+    @Persistent
+    private List<Key> conferences;
 
     /*@ManyToOne(fetch = FetchType.LAZY, optional = true)
     //@Column(nullable = true)
@@ -26,11 +29,12 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     //constructor
     public Stakeholder(){};
 
-    public Stakeholder(String name, String type, String email, String website) {
+    public Stakeholder(String name, String type, String email, String website, List<Key> conferences) {
         this.name = name;
         this.type = type;
         this.email = email;
         this.website = website;
+        this.conferences = conferences;
     }
 
     //getter and setter
@@ -61,18 +65,25 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     public void setWebsite(String website) {
         this.website = website;
     }
-
-    /*public Conference getConference() {
-        return conference;
+    public List<Key> getConferences() {
+        return conferences;
     }
 
-    public void setConference(Conference conference) {
-        this.conference = conference;
-    }*/
-
+    public void setConferences(List<Key> conferences) {
+        this.conferences = conferences;
+    }
     @Override
     public int compareTo(Stakeholder o) {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Stakeholder)) {
+            return false;
+        }
+        Stakeholder stakeholder = (Stakeholder) obj;
+        return (this.id == stakeholder.id);
     }
 }
 

@@ -2,8 +2,7 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
@@ -35,6 +34,19 @@
                         <f:selectItem itemValue="partner" itemLabel="Partner" />
                         <f:selectItem itemValue="organisator" itemLabel="Organisator" />
                     </h:selectOneMenu>
+                    <p:selectManyMenu id="selectedConferences" value="#{StakeholderBean.selectedConferences}" converter="conferenceConverter"
+                                      var="c" filter="true" filterMatchMode="contains" showCheckbox="true">
+                        <f:selectItems value="#{StakeholderBean.conferenceList}" var="conference" itemLabel="#{conference.title}" itemValue="#{conference}" />
+
+                        <p:column>
+                            <h:outputText styleClass="ui-theme ui-theme-#{c.title}" />
+                        </p:column>
+
+                        <p:column>
+                            <h:outputText value="#{c.title}" />
+                        </p:column>
+                    </p:selectManyMenu>
+                    <h:messages id="errorMessages" style="color:red;margin:8px;" />
                     <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.saveStakeholder}"/>
                 </div>
             </h:form>
@@ -74,7 +86,7 @@
                         <h:form>
                             <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{StakeholderBean.modifyStakeholders}"/>
                             <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{StakeholderBean.deleteStakeholder}">
-                                <f:param name="action" value="#{n.id.id}"/>
+                                <f:param name="action" value="#{n.id}"/>
                             </h:commandButton>
                         </h:form>
 

@@ -47,4 +47,9 @@
             <to-view-id>/news.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>conferenceConverter</managed-bean-name>
+        <managed-bean-class>ch.hevs.aipu.admin.convert.ConferenceConverter</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

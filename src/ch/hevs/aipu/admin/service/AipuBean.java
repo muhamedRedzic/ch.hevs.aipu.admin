@@ -81,8 +81,15 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public Conference getConference(Long conferenceId) {
-        return null;
+    public Conference getConference(Key conferenceId) {
+        Conference c = new Conference();
+        try{
+            c = em.find(Conference.class, conferenceId.getId());
+        }finally {
+            em.close();
+        }
+
+        return c;
     }
 
     @Override
@@ -100,8 +107,11 @@ public class AipuBean implements Aipu, Serializable{
     @Override
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders) {
         try {
-            //System.out.print(stakeholders.get(0).getName());
-            Conference c = new Conference(title, start, end, room, website,stakeholders);
+            List<Key> keys = new ArrayList<>();
+            for (Stakeholder s: stakeholders) {
+                keys.add(s.getId());
+            }
+            Conference c = new Conference(title, start, end, room, website, keys);
             em.persist(c);
         }finally {
             em.close();
@@ -109,7 +119,7 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void deleteConference(Long conferenceId) {
+    public void deleteConference(Key conferenceId) {
         try {
             Conference c = em.find(Conference.class, conferenceId);
             em.getTransaction().begin();
@@ -121,8 +131,14 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public Stakeholder getStakeholder(Key StakeholderId) {
-        return null;
+    public Stakeholder getStakeholder(Key stakeholderId) {
+        Stakeholder s = new Stakeholder();
+        try{
+            s = em.find(Stakeholder.class, stakeholderId);
+        }finally {
+            em.close();
+        }
+        return  s;
     }
 
     @Override
@@ -138,10 +154,19 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void saveStakeholder(String name, String type, String email, String website) {
+    public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences) {
         try {
-            Stakeholder s = new Stakeholder(name, type, email,website);
+            List<Key> keys = new ArrayList<>();
+            for (Conference c: conferences) {
+                keys.add(c.getId());
+            }
+
+            Stakeholder s = new Stakeholder(name, type, email,website, keys);
             em.persist(s);
+            for(Key k:keys){
+                Conference c =em.find(Conference.class, k.getId());
+                c.addStakeholder(s.getId());
+            }
         }finally {
             em.close();
         }
@@ -152,9 +177,9 @@ public class AipuBean implements Aipu, Serializable{
 
         try {
             Stakeholder s = em.find(Stakeholder.class, StakeholderId);
-            //em.getTransaction().begin();
+            em.getTransaction().begin();
             em.remove(s);
-            //em.getTransaction().commit();
+            em.getTransaction().commit();
         }finally {
             em.close();
         }

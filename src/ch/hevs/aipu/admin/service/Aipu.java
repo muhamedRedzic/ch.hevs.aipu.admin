@@ -19,13 +19,13 @@ public interface Aipu {
     public void deleteNews(Long newsId);
     public void updateNews(Long id, String title, String text);
     //conference
-    public Conference getConference(Long conferenceId);
+    public Conference getConference(Key conferenceId);
     public List<Conference> getAllConferences();
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders);
-    public void deleteConference(Long conferenceId);
+    public void deleteConference(Key conferenceId);
     //stakeholder
     public Stakeholder getStakeholder(Key StakeholderId);
     public List<Stakeholder> getAllStakeholder();
-    public void saveStakeholder(String name, String type, String email, String website);
+    public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences);
     public void deleteStakeholder(Key StakeholderId);
 }

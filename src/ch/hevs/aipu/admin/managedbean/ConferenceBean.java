@@ -29,9 +29,10 @@ public class ConferenceBean implements Serializable{
     private Date endDate;
     private String room;
     private String website;
-    private List<String> stakeholdersKey;
 
     private List<Conference> conferenceList;
+    private List<Stakeholder> stakeholderList;
+    private List<Stakeholder> selectedStakolders;
 
 
     //private transient NewsController nc;
@@ -89,12 +90,12 @@ public class ConferenceBean implements Serializable{
         this.conferenceList = conferenceList;
     }
 
-    public List<String> getStakeholdersKey() {
-        return stakeholdersKey;
+    public List<Stakeholder> getStakeholderList() {
+        return stakeholderList;
     }
 
-    public void setStakeholdersKey(List<String> stakeholdersKey) {
-        this.stakeholdersKey = stakeholdersKey;
+    public void setStakeholderList(List<Stakeholder> stakeholderList) {
+        this.stakeholderList = stakeholderList;
     }
 
     public List<Conference> getConferenceList(){
@@ -104,28 +105,23 @@ public class ConferenceBean implements Serializable{
         for(int i = 0; i < temp.size(); i++){
             conferenceList.add(temp.get(i));
         }
-
-        //TODO remove this
-        //conferenceList.get(0).addStakeholder(new Stakeholder("jean","Orator","ypo","www"));
-
-
         return conferenceList;
+    }
+
+
+    public List<Stakeholder> getSelectedStakolders() {
+        return selectedStakolders;
+    }
+
+    public void setSelectedStakolders(List<Stakeholder> selectedStakolders) {
+        this.selectedStakolders = selectedStakolders;
     }
 
     public void save(){
         Aipu aipu = new AipuBean();
-
-        //get all related Stakeholder
-        List<Stakeholder> stakeholders = new ArrayList<>();
-        for(String keyString : stakeholdersKey){
-            Key k = KeyFactory.createKey("Stakeholder",Long.parseLong(keyString));
-            stakeholders.add(aipu.getStakeholder(k));
-        }
-
-        aipu.saveConference(title,startDate,endDate,room,website,stakeholders);
+        stakeholderList = new ArrayList<Stakeholder>();
+        aipu.saveConference(title,startDate,endDate,room,website,selectedStakolders);
         this.title = "";
-        /*this.startDate = "";
-        this.endDate = "";*/
         this.room = "";
         this.website = "";
     }
@@ -135,6 +131,7 @@ public class ConferenceBean implements Serializable{
         String action = params.get("action");
         Long id = Long.parseLong(action);
         Aipu aipu = new AipuBean();
-        aipu.deleteConference(id);
+        Key key = KeyFactory.createKey("Conference", action);
+        aipu.deleteConference(key);
     }
 }

@@ -1,12 +1,12 @@
 package ch.hevs.aipu.admin.managedbean;
 
+import ch.hevs.aipu.admin.entity.Conference;
 import ch.hevs.aipu.admin.entity.Stakeholder;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -21,27 +21,23 @@ public class StakeholderBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private Key id;
     private String type;
     private String name;
     private String website;
     private String email;
 
     private List<Stakeholder> stakeholderList;
+    private List<Conference> conferenceList;
 
-    @PostConstruct
-    public void initialize(){
-        Aipu aipu = new AipuBean();
-        stakeholderList = new ArrayList<Stakeholder>();
+    public List<Conference> getSelectedConferences() {
+        return selectedConferences;
     }
 
-    public Key getId() {
-        return id;
+    public void setSelectedConferences(List<Conference> selectedConferences) {
+        this.selectedConferences = selectedConferences;
     }
 
-    public void setId(Key id) {
-        this.id = id;
-    }
+    private List<Conference> selectedConferences;
 
     public String getType() {
         return type;
@@ -78,10 +74,9 @@ public class StakeholderBean implements Serializable{
     public void deleteStakeholder(){
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String action = params.get("action");
-        System.out.print(action);
-        Key id = KeyFactory.createKey("Stakeholder",Long.parseLong(action));
         Aipu aipu = new AipuBean();
-        aipu.deleteStakeholder(id);
+        Key key = KeyFactory.createKey("Stakeholder", action);
+        aipu.deleteStakeholder(key);
     }
 
     public List<Stakeholder> getStakeholderList(){
@@ -95,9 +90,23 @@ public class StakeholderBean implements Serializable{
         return stakeholderList;
     }
 
+    public List<Conference> getConferenceList() {
+        Aipu aipu = new AipuBean();
+        conferenceList = new ArrayList<Conference>();
+        List<Conference> temp = aipu.getAllConferences();
+        for(int i=0; i < temp.size(); i++){
+            conferenceList.add(temp.get(i));
+        }
+        return conferenceList;
+    }
+
+    public void setConferenceList(List<Conference> conferenceList) {
+        this.conferenceList = conferenceList;
+    }
+
     public void saveStakeholder(){
         Aipu aipu = new AipuBean();
-        aipu.saveStakeholder(name, type, email, website);
+        aipu.saveStakeholder(name, type, email, website, selectedConferences);
         this.name = "";
         this.type = "";
         this.email = "";
