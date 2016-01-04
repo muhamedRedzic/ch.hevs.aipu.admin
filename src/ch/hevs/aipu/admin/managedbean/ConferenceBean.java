@@ -103,6 +103,7 @@ public class ConferenceBean implements Serializable{
         conferenceList = new ArrayList<Conference>();
         List<Conference> temp = aipu.getAllConferences();
         for(int i = 0; i < temp.size(); i++){
+            System.out.print(temp.get(i).getStakeholders().size()+"   ");
             conferenceList.add(temp.get(i));
         }
         return conferenceList;
@@ -130,7 +131,6 @@ public class ConferenceBean implements Serializable{
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String action = params.get("action");
         long key = Long.parseLong(action);
-        System.out.print(key);
         Aipu aipu = new AipuBean();
         aipu.deleteConference(key);
     }

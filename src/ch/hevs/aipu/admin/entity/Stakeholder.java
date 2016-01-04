@@ -87,5 +87,9 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
         Stakeholder stakeholder = (Stakeholder) obj;
         return (this.id.getId() == stakeholder.id.getId());
     }
+
+    public void addConference(Key key){
+        conferences.add(key);
+    }
 }
 

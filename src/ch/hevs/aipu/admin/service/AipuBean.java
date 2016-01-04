@@ -106,13 +106,27 @@ public class AipuBean implements Aipu, Serializable{
 
     @Override
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders) {
+        Conference c = new Conference();
+        List<Key> keys = new ArrayList<>();
         try {
-            List<Key> keys = new ArrayList<Key>();
+
             for (Stakeholder s: stakeholders) {
                 keys.add(s.getId());
             }
-            Conference c = new Conference(title, start, end, room, website, keys);
+
+            c = new Conference(title, start, end,room, website, keys);
             em.persist(c);
+        }finally {
+            em.close();
+        }
+
+        try {
+            em = EMF.get().createEntityManager();
+
+            for(Key k:keys){
+                Stakeholder s =em.find(Stakeholder.class, k);
+                s.addConference(c.getId());
+            }
         }finally {
             em.close();
         }
@@ -181,13 +195,6 @@ public class AipuBean implements Aipu, Serializable{
 
         try {
             em = EMF.get().createEntityManager();
-            System.out.print(s.getId());
-            /*Query query = em.createQuery("SELECT s from Stakeholder s where s.name=:name and s.type=:type and s.website=:website and s.conferences=:keys");
-            query.setParameter("name", name);
-            query.setParameter("type", type);
-            query.setParameter("website", website);
-            query.setParameter("keys", keys);
-            s = (Stakeholder) query.getSingleResult();*/
 
             for(Key k:keys){
                 Conference c =em.find(Conference.class, k);

@@ -80,7 +80,6 @@ public class Conference implements Comparable<Conference>, Serializable{
     }
 
     public void addStakeholder(Key key){
-        System.out.println(key);
         stakeholders.add(key);
 
     }
