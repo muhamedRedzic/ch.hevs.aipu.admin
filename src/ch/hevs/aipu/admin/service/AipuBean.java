@@ -122,11 +122,20 @@ public class AipuBean implements Aipu, Serializable{
     public void deleteConference(long conferenceId) {
         try {
             Conference c = em.find(Conference.class, conferenceId);
-
             em.getTransaction().begin();
+            //first remove related relation ...
+            for(Key Skey : c.getStakeholders()){
+                Stakeholder s = em.find(Stakeholder.class,Skey.getId());
+                s.getConferences().remove(c.getId());
+                em.persist(s);
+            }
+            //then remove the entity
             em.remove(c);
             em.getTransaction().commit();
-        }finally {
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
             em.close();
         }
     }
@@ -196,13 +205,10 @@ public class AipuBean implements Aipu, Serializable{
             Stakeholder s = em.find(Stakeholder.class, stakeholderId);
             em.getTransaction().begin();
             //first remove related relation ...
-            Stakeholder sToRemove = em.find(Stakeholder.class,stakeholderId);
-            for(Key Ckey : sToRemove.getConferences()){
-                //EntityManager em2 = EMF.get().createEntityManager();
-                System.out.print("Clé : "+Ckey+"   LONG : "+Ckey.getId());
+            for(Key Ckey : s.getConferences()){
                 Conference c = em.find(Conference.class,Ckey.getId());
-                c.getStakeholders().remove(sToRemove.getId());
-
+                c.getStakeholders().remove(s.getId());
+                em.persist(c);
             }
             //then remove the entity
             em.remove(s);
