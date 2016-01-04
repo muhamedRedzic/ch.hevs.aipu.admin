@@ -98,4 +98,6 @@ public class Conference implements Comparable<Conference>, Serializable{
         Conference conference = (Conference) obj;
         return (this.id.getId() == conference.id.getId());
     }
+
+
 }

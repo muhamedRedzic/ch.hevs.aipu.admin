@@ -1,34 +1,34 @@
 package ch.hevs.aipu.admin.convert;
 
-import ch.hevs.aipu.admin.entity.Conference;
+import ch.hevs.aipu.admin.entity.Stakeholder;
 import ch.hevs.aipu.admin.service.Aipu;
 import ch.hevs.aipu.admin.service.AipuBean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.convert.FacesConverter;
 import java.util.List;
+import javax.faces.convert.FacesConverter;
+import javax.faces.convert.Converter;
 
 /**
- * Created by Muhamed on 11.12.2015.
+ * Created by pok on 04.01.2016.
  */
-@FacesConverter("conferenceConverter")
-public class ConferenceConverter implements Converter{
+@FacesConverter("stakeholderConverter")
+public class StakeholderConverter implements Converter{
 
     @Override
-    public Conference getAsObject(FacesContext context, UIComponent component, String value) {
+    public Stakeholder getAsObject(FacesContext context, UIComponent component, String value) {
 
         if(value != null && value.trim().length() > 0) {
             try {
                 Aipu service = new AipuBean();
                 //StakeholderBean service = (StakeholderBean) context.getExternalContext().getApplicationMap().get("StakeholderBean");
-                List<Conference> list= service.getAllConferences();
+                List<Stakeholder> list= service.getAllStakeholder();
                 int position = 0;
                 for (int i = 0; i < list.size(); i++){
-                    if (list.get(i).getTitle().equals(value)){
+                    if (list.get(i).getName().equals(value)){
                         position = i;
                     }
                 }
@@ -38,11 +38,12 @@ public class ConferenceConverter implements Converter{
 
                 return list.get(position);
             } catch(NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid conference."));
+
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid stakeholder."));
             }
         }
         else {
-            FacesMessage message = new FacesMessage("Choose a Conference");
+            FacesMessage message = new FacesMessage("Choose a Stakeholder");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
             return null;
         }
@@ -52,4 +53,5 @@ public class ConferenceConverter implements Converter{
     public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object o) {
         return null;
     }
+
 }
