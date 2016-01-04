@@ -35,6 +35,10 @@ public class ConferenceConverter implements Converter{
                         position = i;
                     }
                 }
+
+                if(list.size()==0)
+                    return null;
+
                 return list.get(position);
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid conference."));

@@ -75,7 +75,7 @@ public class StakeholderBean implements Serializable{
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String action = params.get("action");
         Aipu aipu = new AipuBean();
-        Key key = KeyFactory.createKey("Stakeholder", action);
+        long key = Long.parseLong(action);
         aipu.deleteStakeholder(key);
     }
 

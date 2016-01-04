@@ -59,7 +59,7 @@
                             <h:outputText value="#{s.name}" />
                         </p:column>
                     </p:selectManyMenu>
-
+                    <h:messages id="errorMessages" style="color:red;margin:8px;" />
 
                     <h:commandButton styleClass="btn btn-primary" value="Save" action="#{ConferenceBean.save}"/>
                 </div>
@@ -120,7 +120,7 @@
                         <f:param name="action" value="#{c.id}"/>
                     </h:commandButton>
                     <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{ConferenceBean.deleteConference}">
-                        <f:param name="action" value="#{c.id}"/>
+                        <f:param name="action" value="#{c.id.id}"/>
                     </h:commandButton>
                 </h:form>
                 </h:column>

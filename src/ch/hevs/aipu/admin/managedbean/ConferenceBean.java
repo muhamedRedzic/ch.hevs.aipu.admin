@@ -129,9 +129,9 @@ public class ConferenceBean implements Serializable{
     public void deleteConference() {
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         String action = params.get("action");
-        Long id = Long.parseLong(action);
+        long key = Long.parseLong(action);
+        System.out.print(key);
         Aipu aipu = new AipuBean();
-        Key key = KeyFactory.createKey("Conference", action);
         aipu.deleteConference(key);
     }
 }

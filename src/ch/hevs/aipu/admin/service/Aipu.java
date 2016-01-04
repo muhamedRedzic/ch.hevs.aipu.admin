@@ -22,10 +22,10 @@ public interface Aipu {
     public Conference getConference(Key conferenceId);
     public List<Conference> getAllConferences();
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders);
-    public void deleteConference(Key conferenceId);
+    public void deleteConference(long conferenceId);
     //stakeholder
     public Stakeholder getStakeholder(Key StakeholderId);
     public List<Stakeholder> getAllStakeholder();
     public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences);
-    public void deleteStakeholder(Key StakeholderId);
+    public void deleteStakeholder(long StakeholderId);
 }

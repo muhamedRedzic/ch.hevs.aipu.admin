@@ -119,9 +119,10 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void deleteConference(Key conferenceId) {
+    public void deleteConference(long conferenceId) {
         try {
             Conference c = em.find(Conference.class, conferenceId);
+
             em.getTransaction().begin();
             em.remove(c);
             em.getTransaction().commit();
@@ -171,12 +172,13 @@ public class AipuBean implements Aipu, Serializable{
 
         try {
             em = EMF.get().createEntityManager();
-            Query query = em.createQuery("SELECT s from Stakeholder s where s.name=:name and s.type=:type and s.website=:website and s.conferences=:keys");
+            System.out.print(s.getId());
+            /*Query query = em.createQuery("SELECT s from Stakeholder s where s.name=:name and s.type=:type and s.website=:website and s.conferences=:keys");
             query.setParameter("name", name);
             query.setParameter("type", type);
             query.setParameter("website", website);
             query.setParameter("keys", keys);
-            s = (Stakeholder) query.getSingleResult();
+            s = (Stakeholder) query.getSingleResult();*/
 
             for(Key k:keys){
                 Conference c =em.find(Conference.class, k);
@@ -188,14 +190,27 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void deleteStakeholder(Key StakeholderId) {
+    public void deleteStakeholder(long stakeholderId) {
 
         try {
-            Stakeholder s = em.find(Stakeholder.class, StakeholderId);
+            Stakeholder s = em.find(Stakeholder.class, stakeholderId);
             em.getTransaction().begin();
+            //first remove related relation ...
+            Stakeholder sToRemove = em.find(Stakeholder.class,stakeholderId);
+            for(Key Ckey : sToRemove.getConferences()){
+                //EntityManager em2 = EMF.get().createEntityManager();
+                System.out.print("Clé : "+Ckey+"   LONG : "+Ckey.getId());
+                Conference c = em.find(Conference.class,Ckey.getId());
+                c.getStakeholders().remove(sToRemove.getId());
+
+            }
+            //then remove the entity
             em.remove(s);
             em.getTransaction().commit();
-        }finally {
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
             em.close();
         }
     }
