@@ -46,12 +46,12 @@
                     <p:watermark for="website" value="Website" />
 
                     <h3>
-                        <h:outputLabel styleClass="label label-default" value="Stakeholders"/>
+                        <h:outputLabel styleClass="label label-default" value="Stakeholders" rendered="#{not empty StakeholderBean.stakeholderList}"/>
                     </h3>
 
 
                     <p:selectManyMenu id="selectedStakeholders" value="#{ConferenceBean.selectedStakolders}" converter="stakeholderConverter"
-                                      var="s" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                      var="s" filter="true" filterMatchMode="contains" showCheckbox="true" rendered="#{not empty StakeholderBean.stakeholderList}">
                         <f:selectItems value="#{StakeholderBean.stakeholderList}" var="stakeholder" itemLabel="#{stakeholder.name}" itemValue="#{stakeholder}" />
 
                         <p:column>

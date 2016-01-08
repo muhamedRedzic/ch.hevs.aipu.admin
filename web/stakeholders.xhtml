@@ -36,10 +36,10 @@
                         <f:selectItem itemValue="organizer" itemLabel="Organizer" />
                     </h:selectOneMenu>
                     <h3>
-                        <h:outputLabel styleClass="label label-default" value="Related conferences"/>
+                        <h:outputLabel styleClass="label label-default" value="Related conferences" rendered="#{not empty StakeholderBean.conferenceList}"/>
                     </h3>
                     <p:selectManyMenu id="selectedConferences" value="#{StakeholderBean.selectedConferences}" converter="conferenceConverter"
-                                      var="c" filter="true" filterMatchMode="contains" showCheckbox="true">
+                                      var="c" filter="true" filterMatchMode="contains" showCheckbox="true" rendered="#{not empty StakeholderBean.conferenceList}">
                         <f:selectItems value="#{StakeholderBean.conferenceList}" var="conference" itemLabel="#{conference.title}" itemValue="#{conference}" />
 
                         <p:column>

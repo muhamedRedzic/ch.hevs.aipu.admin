@@ -111,6 +111,8 @@ public class AipuBean implements Aipu, Serializable{
 
     @Override
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders) {
+        if(stakeholders == null)
+            stakeholders = new ArrayList<>();
         Conference c = new Conference();
         List<Key> keys = new ArrayList<>();
         try {
@@ -189,6 +191,8 @@ public class AipuBean implements Aipu, Serializable{
 
     @Override
     public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences) {
+        if(conferences == null)
+            conferences = new ArrayList<>();
         Stakeholder s = new Stakeholder();
         List<Key> keys = new ArrayList<>();
         try {
