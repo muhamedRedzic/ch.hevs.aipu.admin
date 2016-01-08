@@ -71,7 +71,7 @@ public class StakeholderBean implements Serializable{
         this.email = email;
     }
 
-    public Stakeholder getStakeholder(Key k)
+    public Stakeholder retrieveStakeholder(Key k)
     {
         Aipu aipu = new AipuBean();
         return aipu.getStakeholder(k);

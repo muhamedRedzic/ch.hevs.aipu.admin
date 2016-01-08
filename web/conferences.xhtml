@@ -3,7 +3,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui" xmlns:a="http://java.sun.com/jsf/html">
     <ui:define name="content">
 
         <div class="jumbotron">
@@ -21,13 +21,16 @@
                     <h3>
                         <h:outputLabel for="startDateTime" styleClass="label label-default" value="Start date"/>
                     </h3>
-                    <p:calendar id="startDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.startDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup"/>
+                    <p:calendar id="startDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.startDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup">
+                        <p:ajax event="dateSelect" update="endDateTime" />
+                    </p:calendar>
                     <p:watermark for="startDateTime" value="Start date and time (required)" />
                     <p:message for="startDateTime" display="text"/>
                     <h3>
                         <h:outputLabel for="endDateTime" styleClass="label label-default" value="End date"/>
                     </h3>
-                    <p:calendar id="endDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.endDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup"/>
+                    <p:calendar id="endDateTime" styleClass="ui-calendar ui-calendar-popup" required="true" value="#{ConferenceBean.endDate}" pattern="dd/MM/yyyy HH:mm:ss" mode="popup" mindate="#{ConferenceBean.startDate}">
+                    </p:calendar>
                     <p:watermark for="endDateTime" value="End date and time (required)" />
                     <p:message for="endDateTime" display="text"/>
                     <h3>
@@ -64,7 +67,7 @@
                     <h:commandButton styleClass="btn btn-primary" value="Save" action="#{ConferenceBean.save}"/>
                 </div>
             </h:form>
-        </div>
+
 
         <hr/>
         <h2>Conference list</h2>
@@ -125,6 +128,8 @@
                 </h:form>
                 </h:column>
             </h:dataTable>
+        </div>
+
         </div>
 
     </ui:define>
