@@ -49,7 +49,7 @@
 
                     <p:selectManyMenu id="selectedStakeholders" value="#{ConferenceBean.selectedStakolders}" converter="stakeholderConverter"
                                       var="s" filter="true" filterMatchMode="contains" showCheckbox="true">
-                        <f:selectItems value="#{StakeholderBean.stakeholderList}" var="stakeholder" itemLabel="#{stakeholder.id}" itemValue="#{stakeholder}" />
+                        <f:selectItems value="#{StakeholderBean.stakeholderList}" var="stakeholder" itemLabel="#{stakeholder.name}" itemValue="#{stakeholder}" />
 
                         <p:column>
                             <h:outputText styleClass="ui-theme ui-theme-#{s.name}" />

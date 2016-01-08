@@ -103,7 +103,6 @@ public class ConferenceBean implements Serializable{
         conferenceList = new ArrayList<Conference>();
         List<Conference> temp = aipu.getAllConferences();
         for(int i = 0; i < temp.size(); i++){
-            System.out.print(temp.get(i).getStakeholders().size()+"   ");
             conferenceList.add(temp.get(i));
         }
         return conferenceList;

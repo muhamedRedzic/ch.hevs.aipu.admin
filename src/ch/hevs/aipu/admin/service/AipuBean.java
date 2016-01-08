@@ -95,9 +95,14 @@ public class AipuBean implements Aipu, Serializable{
     @Override
     public List<Conference> getAllConferences() {
         try {
-            Query query = em.createQuery("SELECT c FROM Conference c");
+            Query query = em.createQuery("SELECT c FROM Conference c ");
             List<Conference> results = (List<Conference>) query.getResultList();
             Collections.sort(results);
+            //hack to force appengine to eagerly load key list
+            for(Conference c : results)
+            {
+                c.getStakeholders().size();
+            }
             return results;
         }finally {
             em.close();
@@ -170,6 +175,11 @@ public class AipuBean implements Aipu, Serializable{
         try {
             Query query = em.createQuery("SELECT s FROM Stakeholder s");
             List<Stakeholder> results = (List<Stakeholder>) query.getResultList();
+            //hack to force appengine to eagerly load key list
+            for(Stakeholder s : results)
+            {
+                s.getConferences().size();
+            }
             Collections.sort(results);
             return results;
         }finally {
