@@ -10,7 +10,7 @@
             <h1>Conference</h1>
             <h2>Add conference</h2>
 
-            <h:form>
+            <h:form rendered="#{UserBean.logged}">
                 <div class="form-group">
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Title"/>
@@ -51,16 +51,26 @@
 
 
                     <p:selectManyMenu id="selectedStakeholders" value="#{ConferenceBean.selectedStakolders}" converter="stakeholderConverter"
-                                      var="s" filter="true" filterMatchMode="contains" showCheckbox="true" rendered="#{not empty StakeholderBean.stakeholderList}">
-                        <f:selectItems value="#{StakeholderBean.stakeholderList}" var="stakeholder" itemLabel="#{stakeholder.name}" itemValue="#{stakeholder}" />
+                                      var="s" filter="true" filterMatchMode="contains" showCheckbox="true" rendered="#{not empty StakeholderBean.stakeholderList}" >
+                        <f:selectItems value="#{StakeholderBean.stakeholderList}" var="stakeholder" itemLabel="#{stakeholder.name}" itemValue="#{stakeholder}"  />
 
                         <p:column>
                             <h:outputText styleClass="ui-theme ui-theme-#{s.name}" />
                         </p:column>
 
                         <p:column>
-                            <h:outputText value="#{s.name}" />
+                            <h:outputText value="#{s.name}"/>
                         </p:column>
+
+                        <!--<p:column>
+                            <h:outputText styleClass="ui-theme ui-theme-#{s.type}" />
+                        </p:column>-->
+
+                        <p:column>
+                            <h:outputText value="#{s.type}" style="color: red"/>
+                        </p:column>
+
+
                     </p:selectManyMenu>
                     <h:messages id="errorMessages" style="color:red;margin:8px;" />
 
@@ -77,7 +87,9 @@
             <h:dataTable value="#{ConferenceBean.conferenceList}" var="c"
                      styleClass="table table-striped table-bordered"
                      headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row">
+                     rowClasses="order-table-odd-row,order-table-even-row"
+                     rendered="#{UserBean.logged}"
+            >
 
             <h:column>
                 <!-- column header -->

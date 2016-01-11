@@ -11,7 +11,7 @@
             <h1>News</h1>
             <h2>Add news</h2>
 
-            <h:form>
+            <h:form rendered="#{UserBean.logged}">
                 <div class="form-group">
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Title"/>
@@ -38,7 +38,9 @@
                 <h:dataTable value="#{NewsBean.newsList}" var="n"
                              styleClass="table table-striped table-bordered"
                              headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
+                             rowClasses="order-table-odd-row,order-table-even-row"
+                             rendered="#{UserBean.logged}"
+                >
                     <h:column>
                         <!-- column header -->
                         <f:facet name="header"><span class="label label-default">Title</span></f:facet>

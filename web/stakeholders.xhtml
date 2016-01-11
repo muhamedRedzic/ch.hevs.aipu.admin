@@ -9,7 +9,7 @@
             <h1>Stakeholder</h1>
             <h2>Add stakeholder</h2>
 
-            <h:form>
+            <h:form rendered="#{UserBean.logged}">
                 <div class="form-group">
                     <h3>
                         <h:outputLabel styleClass="label label-default" value="Name"/>
@@ -64,7 +64,8 @@
                 <h:dataTable value="#{StakeholderBean.stakeholderList}" var="n"
                              styleClass="table table-striped table-bordered"
                              headerClass="order-table-header"
-                             rowClasses="order-table-odd-row,order-table-even-row">
+                             rowClasses="order-table-odd-row,order-table-even-row"
+                             rendered="#{UserBean.logged}" >
                     <h:column>
                         <!-- column header -->
                         <f:facet name="header"><span class="label label-default">Name</span></f:facet>

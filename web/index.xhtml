@@ -1,14 +1,42 @@
-<ui:composition template="templates/BasicTemplate.xhtml"
-                xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="content">
-        <!-- Main component for a primary marketing message or call to action -->
-        <div class="jumbotron">
-            <h1>Hello Admin</h1>
-            <p>Here you can manage your AIPU android app</p>
-        </div>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    </ui:define>
-</ui:composition>
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Admin AIPU"/>
+        <meta name="author" content="Group 3"/>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="navbar-fixed-top.css"/>
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="bootstrap-theme.css"/>
+        <h:outputStylesheet library="css" name="signin.css"/>
+    </h:head>
+
+    <h:body>
+
+        <div class="container">
+
+            <h:form class="form-signin">
+                <h:graphicImage value="img/logo.png" />
+                <h:outputLabel >Username</h:outputLabel>
+                <h:inputText  id="inputUsername" value="#{UserBean.username}" class="form-control"  required="true" autofocus="true" >
+                </h:inputText>
+                <h:outputLabel value="Password"/>
+                <h:inputSecret id="inputPassword" class="form-control"  required="true" value="#{UserBean.pwd}"/>
+
+                <h:commandButton class="btn btn-lg btn-primary btn-block" type="submit" action="#{UserBean.login}" value="login"/>
+
+                <h:outputLabel styleClass="ui-message-error" value="#{UserBean.message}" />
+            </h:form>
+
+        </div> <!-- /container -->
+
+    </h:body>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+</html>

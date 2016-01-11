@@ -11,6 +11,25 @@
             <to-view-id>/newsForm.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-action>#{UserBean.logout}</from-action>
+            <from-outcome>true</from-outcome>
+            <to-view-id>/index.jsf</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{UserBean.login}</from-action>
+            <from-outcome>true</from-outcome>
+            <to-view-id>/welcome.jsf</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/stakeholders.xhtml</from-view-id>
         <navigation-case>
