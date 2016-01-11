@@ -4,7 +4,6 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-        <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
             <h1>Stakeholder</h1>
             <h2>Add stakeholder</h2>
@@ -67,9 +66,9 @@
                              rowClasses="order-table-odd-row,order-table-even-row"
                              rendered="#{UserBean.logged}" >
                     <h:column>
-                        <!-- column header -->
+
                         <f:facet name="header"><span class="label label-default">Name</span></f:facet>
-                        <!-- row record -->
+
                         #{n.name}
                     </h:column>
 

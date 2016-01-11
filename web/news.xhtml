@@ -6,7 +6,6 @@
                 xmlns:p="http://primefaces.org/ui"
 >
     <ui:define name="content">
-        <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
             <h1>News</h1>
             <h2>Add news</h2>
@@ -42,9 +41,9 @@
                              rendered="#{UserBean.logged}"
                 >
                     <h:column>
-                        <!-- column header -->
+
                         <f:facet name="header"><span class="label label-default">Title</span></f:facet>
-                        <!-- row record -->
+
                         #{n.title}
                     </h:column>
 
