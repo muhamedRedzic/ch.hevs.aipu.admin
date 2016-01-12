@@ -1,7 +1,6 @@
 package ch.hevs.aipu.admin.entity;
 
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +9,8 @@ import java.util.List;
 
 import javax.jdo.annotations.Persistent;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.PostLoad;
 
 @Entity
 public class Conference implements Comparable<Conference>, Serializable{
@@ -22,8 +23,7 @@ public class Conference implements Comparable<Conference>, Serializable{
     private Date end;
     private String room;
     private String website;
-    @Persistent
-    @Column(nullable = true)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Key> stakeholders = new ArrayList<>();
 
     //Constructor

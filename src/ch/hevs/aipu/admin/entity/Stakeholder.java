@@ -20,8 +20,7 @@ public class Stakeholder implements Comparable<Stakeholder>, Serializable{
     private String type;
     private String email;
     private String website;
-    @Persistent
-    @Column(nullable = true)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Key> conferences;
 
     /*@ManyToOne(fetch = FetchType.LAZY, optional = true)

@@ -30,7 +30,7 @@
         <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
         <init-param>
             <param-name>services</param-name>
-            <param-value>ch.hevs.aipu.admin.entity.NewsEndpoint, ch.hevs.aipu.admin.entity.StakeholderEndpoint</param-value>
+            <param-value>ch.hevs.aipu.admin.entity.NewsEndpoint, ch.hevs.aipu.admin.entity.StakeholderEndpoint, ch.hevs.aipu.admin.entity.ConferenceEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
