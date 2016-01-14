@@ -24,8 +24,9 @@ public interface Aipu {
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders);
     public void deleteConference(long conferenceId);
     //stakeholder
-    public Stakeholder getStakeholder(Key StakeholderId);
+    public Stakeholder getStakeholder(long StakeholderId);
     public List<Stakeholder> getAllStakeholder();
     public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences);
     public void deleteStakeholder(long StakeholderId);
+    public void updateStakeholder(Long id,String type ,String name, String website,String email);
 }

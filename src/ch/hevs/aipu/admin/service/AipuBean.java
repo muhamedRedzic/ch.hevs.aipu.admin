@@ -80,6 +80,8 @@ public class AipuBean implements Aipu, Serializable{
         }
     }
 
+
+
     @Override
     public Conference getConference(Key conferenceId) {
         Conference c = new Conference();
@@ -158,7 +160,7 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public Stakeholder getStakeholder(Key stakeholderId) {
+    public Stakeholder getStakeholder(long stakeholderId) {
         Stakeholder s = new Stakeholder();
         try{
             s = em.find(Stakeholder.class, stakeholderId);
@@ -229,6 +231,19 @@ public class AipuBean implements Aipu, Serializable{
             e.printStackTrace();
         }
         finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void updateStakeholder(Long id,String type ,String name, String website,String email) {
+        try {
+            Stakeholder s = em.find(Stakeholder.class, id);
+            s.setType(type);
+            s.setName(name);
+            s.setWebsite(website);
+            s.setEmail(email);
+        }finally {
             em.close();
         }
     }

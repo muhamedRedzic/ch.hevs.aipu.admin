@@ -29,6 +29,8 @@ public class StakeholderBean implements Serializable{
     private List<Stakeholder> stakeholderList;
     private List<Conference> conferenceList;
 
+    private long keyForModify;
+
     public List<Conference> getSelectedConferences() {
         return selectedConferences;
     }
@@ -71,11 +73,7 @@ public class StakeholderBean implements Serializable{
         this.email = email;
     }
 
-    public Stakeholder retrieveStakeholder(Key k)
-    {
-        Aipu aipu = new AipuBean();
-        return aipu.getStakeholder(k);
-    }
+
 
     public void deleteStakeholder(){
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -119,7 +117,30 @@ public class StakeholderBean implements Serializable{
         this.website = "";
     }
 
-    public void modifyStakeholder(){
-
+    public String modifyStakeholder(){
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String action = params.get("action");
+        Aipu aipu = new AipuBean();
+        keyForModify = Long.parseLong(action);
+        Stakeholder s = aipu.getStakeholder(keyForModify);
+        type = s.getType();
+        name = s.getName();
+        website = s.getWebsite();
+        email = s.getEmail();
+        return "stakeholderModify";
     }
+
+    public String updateStakeholder(){
+        if(keyForModify != 0) {
+            Aipu aipu = new AipuBean();
+            aipu.updateStakeholder(keyForModify, type, name, website, email);
+            keyForModify = 0;
+            type = "";
+            name = "";
+            website = "";
+            email = "";
+        }
+        return "success";
+    }
+
 }

@@ -98,7 +98,9 @@
                     <h:column>
                         <f:facet name="header"><span class="label label-default">Modify/Delete</span></f:facet>
                         <h:form>
-                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{StakeholderBean.modifyStakeholders}"/>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{StakeholderBean.modifyStakeholder}">
+                                <f:param name="action" value="#{n.id.id}"/>
+                            </h:commandButton>
                             <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{StakeholderBean.deleteStakeholder}">
                                 <f:param name="action" value="#{n.id.id}"/>
                             </h:commandButton>

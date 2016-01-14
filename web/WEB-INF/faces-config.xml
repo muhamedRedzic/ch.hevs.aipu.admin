@@ -34,23 +34,16 @@
         <from-view-id>/stakeholders.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{StakeholderBean.modifyStakeholder}</from-action>
-            <from-outcome>Succes</from-outcome>
+            <from-outcome>stakeholderModify</from-outcome>
             <to-view-id>/stackholdersForm.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/newsForm.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{newsBean.saveNews}</from-action>
-            <from-outcome>Succes</from-outcome>
-            <to-view-id>/news.jsf</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/stackholdersForm.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{StakeholderBean.updateStakeholder}</from-action>
-            <from-outcome>Succes</from-outcome>
+            <from-outcome>success</from-outcome>
             <to-view-id>/stakeholders.jsf</to-view-id>
         </navigation-case>
     </navigation-rule>
