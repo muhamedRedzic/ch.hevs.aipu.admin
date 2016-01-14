@@ -127,9 +127,7 @@
                 </h:column>
                 <h:column>
                 <h:form>
-                    <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Modify" action="#{ConferenceBean.modifyConference}">
-                        <f:param name="action" value="#{c.id}"/>
-                    </h:commandButton>
+
                     <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Delete" action="#{ConferenceBean.deleteConference}">
                         <f:param name="action" value="#{c.id.id}"/>
                     </h:commandButton>

@@ -30,7 +30,52 @@
                         <f:selectItem itemValue="partner" itemLabel="Partner" />
                         <f:selectItem itemValue="organisator" itemLabel="Organisator" />
                     </h:selectOneMenu>
-                    <h:commandButton styleClass="btn btn-primary" value="Add" action="#{StakeholderBean.updateStakeholder}"/>
+
+
+                    <h:dataTable value="#{StakeholderBean.conferencesForModify}" var="conf"
+                                 styleClass="table table-striped table-bordered"
+                                 headerClass="order-table-header"
+                                 rowClasses="order-table-odd-row,order-table-even-row"
+                                 rendered="#{UserBean.logged}"
+                    >
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"><span class="label label-default">Title</span></f:facet>
+                            <!-- row record -->
+                            #{conf.title}
+                        </h:column>
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"><span class="label label-default">Start</span></f:facet>
+                            <!-- row record -->
+                            #{conf.start}
+                        </h:column>
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"><span class="label label-default">End</span></f:facet>
+                            <!-- row record -->
+                            #{conf.end}
+                        </h:column>
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"><span class="label label-default">Room</span></f:facet>
+                            <!-- row record -->
+                            #{conf.room}
+                        </h:column>
+                        <h:column>
+                            <!-- column header -->
+                            <f:facet name="header"><span class="label label-default">Website</span></f:facet>
+                            <!-- row record -->
+                            #{conf.website}
+                        </h:column>
+                        <h:column>
+                            <h:commandButton styleClass="btn btn-primary btn-xs btn-block" value="Remove" action="#{StakeholderBean.removeConference}">
+                                <f:param name="remove" value="#{conf.id.id}"/>
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+
+                    <h:commandButton styleClass="btn btn-primary" value="Submit" action="#{StakeholderBean.updateStakeholder}"/>
 
                 </div>
             </h:form>

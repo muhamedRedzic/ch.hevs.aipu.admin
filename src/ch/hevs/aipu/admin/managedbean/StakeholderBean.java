@@ -29,6 +29,8 @@ public class StakeholderBean implements Serializable{
     private List<Stakeholder> stakeholderList;
     private List<Conference> conferenceList;
 
+    private List<Conference> conferencesForModify;
+
     private long keyForModify;
 
     public List<Conference> getSelectedConferences() {
@@ -73,7 +75,13 @@ public class StakeholderBean implements Serializable{
         this.email = email;
     }
 
+    public List<Conference> getConferencesForModify() {
+        return conferencesForModify;
+    }
 
+    public void setConferencesForModify(List<Conference> conferencesForModify) {
+        this.conferencesForModify = conferencesForModify;
+    }
 
     public void deleteStakeholder(){
         Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -127,20 +135,40 @@ public class StakeholderBean implements Serializable{
         name = s.getName();
         website = s.getWebsite();
         email = s.getEmail();
+        List<Key> confKey = s.getConferences();
+        conferencesForModify = new ArrayList<>();
+        for (Key k : confKey)
+        {
+            System.out.print(k+"\n");
+            aipu = new AipuBean();
+            conferencesForModify.add(aipu.getConference(k.getId()));
+            System.out.print(conferencesForModify.size()+"\n");
+        }
+        System.out.print(conferencesForModify.size()+"\n");
         return "stakeholderModify";
     }
 
     public String updateStakeholder(){
         if(keyForModify != 0) {
             Aipu aipu = new AipuBean();
-            aipu.updateStakeholder(keyForModify, type, name, website, email);
+            aipu.updateStakeholder(keyForModify, type, name, website, email,conferencesForModify);
             keyForModify = 0;
             type = "";
             name = "";
             website = "";
             email = "";
+            conferenceList = new ArrayList<>();
         }
         return "success";
+    }
+
+    public void removeConference(){
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String action = params.get("remove");
+        long keyForRemove = Long.parseLong(action);
+        Aipu aipu = new AipuBean();
+        Conference c = aipu.getConference(keyForRemove);
+        conferencesForModify.remove(c);
     }
 
 }

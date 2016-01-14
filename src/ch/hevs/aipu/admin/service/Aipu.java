@@ -19,7 +19,7 @@ public interface Aipu {
     public void deleteNews(Long newsId);
     public void updateNews(Long id, String title, String text);
     //conference
-    public Conference getConference(Key conferenceId);
+    public Conference getConference(long conferenceId);
     public List<Conference> getAllConferences();
     public void saveConference(String title, Date start, Date end, String room, String website,List<Stakeholder> stakeholders);
     public void deleteConference(long conferenceId);
@@ -28,5 +28,5 @@ public interface Aipu {
     public List<Stakeholder> getAllStakeholder();
     public void saveStakeholder(String name, String type, String email, String website, List<Conference> conferences);
     public void deleteStakeholder(long StakeholderId);
-    public void updateStakeholder(Long id,String type ,String name, String website,String email);
+    public void updateStakeholder(Long id,String type ,String name, String website,String email,List<Conference> conferences);
 }

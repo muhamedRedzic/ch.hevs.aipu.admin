@@ -83,10 +83,10 @@ public class AipuBean implements Aipu, Serializable{
 
 
     @Override
-    public Conference getConference(Key conferenceId) {
+    public Conference getConference(long conferenceId) {
         Conference c = new Conference();
         try{
-            c = em.find(Conference.class, conferenceId.getId());
+            c = em.find(Conference.class, conferenceId);
         }finally {
             em.close();
         }
@@ -236,15 +236,10 @@ public class AipuBean implements Aipu, Serializable{
     }
 
     @Override
-    public void updateStakeholder(Long id,String type ,String name, String website,String email) {
-        try {
-            Stakeholder s = em.find(Stakeholder.class, id);
-            s.setType(type);
-            s.setName(name);
-            s.setWebsite(website);
-            s.setEmail(email);
-        }finally {
-            em.close();
-        }
+    public void updateStakeholder(Long id,String type ,String name, String website,String email,List<Conference> conferences) {
+        //remove then reaadd stakeholder because real update is too complicated in many to many
+        this.deleteStakeholder(id);
+        em = EMF.get().createEntityManager();
+        this.saveStakeholder(name,type,email,website,conferences);
     }
 }
